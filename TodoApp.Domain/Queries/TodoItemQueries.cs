@@ -12,5 +12,5 @@ public static class TodoItemQueries
         x => x.User == user &&
         x.Date.Date == date.Date &&
         x.Done == done;
-
+    public static Expression<Func<TodoItem, bool>> GetById(Guid id, string user) => x => x.Id == id && x.User == user;
 }

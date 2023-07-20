@@ -1,6 +1,6 @@
+
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Domain.Entities;
-using TodoApp.Domain.Entities.Data.Mappings;
 
 namespace TodoApp.Domain.Infra.Data;
 
@@ -15,6 +15,12 @@ public class TodoDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new TodoItemMap());
+        modelBuilder.Entity<TodoItem>().ToTable("TodoItem");
+        modelBuilder.Entity<TodoItem>().Property(x => x.Id);
+        modelBuilder.Entity<TodoItem>().Property(x => x.User).HasMaxLength(120).HasColumnType("varchar(120)");
+        modelBuilder.Entity<TodoItem>().Property(x => x.Title).HasMaxLength(160).HasColumnType("varchar(160)");
+        modelBuilder.Entity<TodoItem>().Property(x => x.Done).HasColumnType("bit");
+        modelBuilder.Entity<TodoItem>().Property(x => x.Date);
+        modelBuilder.Entity<TodoItem>().HasIndex(b => b.User);
     }
 }
