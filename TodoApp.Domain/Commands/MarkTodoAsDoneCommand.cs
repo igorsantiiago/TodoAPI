@@ -1,5 +1,6 @@
 using Flunt.Notifications;
 using Flunt.Validations;
+using System.ComponentModel.DataAnnotations;
 using TodoApp.Domain.Commands.Contracts;
 
 namespace TodoApp.Domain.Commands;
@@ -14,6 +15,8 @@ public class MarkTodoAsDoneCommand : Notifiable, ICommand
     }
 
     public Guid Id { get; set; }
+
+    [MinLength(6)]
     public string User { get; set; }
 
     public void Validate()
